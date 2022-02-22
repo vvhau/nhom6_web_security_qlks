@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/java/com/nhom6/qlks/hibernate/daos/LoaiPhongDao.java=UTF-8
+encoding//src/main/java/com/nhom6/qlks/hibernate/daos/UserDao.java=UTF-8
+encoding//src/main/java/com/nhom6/qlks/servlet/customer/ForgetPasswordServlet.java=UTF-8
+encoding//src/main/java/com/nhom6/qlks/servlet/customer/LoginServlet.java=UTF-8
+encoding//src/main/java/com/nhom6/qlks/servlet/customer/RegisterServlet.java=UTF-8
+encoding//src/main/java/com/nhom6/qlks/servlet/customer/ResetPasswordServlet.java=UTF-8
+encoding//src/main/java/com/nhom6/qlks/utils/Utils.java=UTF-8
+encoding//src/main/webapp/WEB-INF/views/layouts/layout-admin/_header-admin.jsp=UTF-8
+encoding/<project>=UTF-8
