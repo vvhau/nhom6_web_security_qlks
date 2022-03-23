@@ -8,7 +8,7 @@
 Mở Terminal / Command Line và thực hiện những bước sau đây.
 1. Clone dự án.
 ```bash
-git clone https://github.com/khoahc/nhom6_web_security_qlks.git
+git clone https://github.com/king3Bi/nhom6_web_security_qlks.git
 ```
 2. Tạo database trên MySql với bằng cách Execute file **data.sql**
 3. Mở Eclip, chọn File -> Import -> General -> Existing Project into Workspace.
