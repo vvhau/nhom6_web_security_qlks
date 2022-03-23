@@ -13,4 +13,16 @@ git clone https://github.com/khoahc/nhom6_web_security_qlks.git
 2. Tạo database trên MySql với bằng cách Execute file **data.sql**
 3. Mở Eclip, chọn File -> Import -> General -> Existing Project into Workspace.
 Chọn Directory của project vừa clone 
-4. 
+
+## Thông tin các tài khoản hệ thống
+Loại tài khoản  | Tên đăng nhập | Mật khẩu
+------------- | ------------- | -------------
+Quản lý  | ql | admin
+Nhân viên  | nv1 | 1
+Nhân viên  | nv1 | 1
+Nhân viên  | nv1 | 1
+Khách hàng  | kh1 | 1
+Khách hàng  | kh2 | 1
+Khách hàng  | kh3 | 1
+Khách hàng  | kh4 | 1
+Khách hàng  | kh5 | 1
