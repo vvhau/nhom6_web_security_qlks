@@ -19,8 +19,8 @@ Loại tài khoản  | Tên đăng nhập | Mật khẩu
 ------------- | ------------- | -------------
 Quản lý  | ql | admin
 Nhân viên  | nv1 | 1
-Nhân viên  | nv1 | 1
-Nhân viên  | nv1 | 1
+Nhân viên  | nv2 | 1
+Nhân viên  | nv3 | 1
 Khách hàng  | kh1 | 1
 Khách hàng  | kh2 | 1
 Khách hàng  | kh3 | 1
