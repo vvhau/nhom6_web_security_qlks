@@ -66,8 +66,7 @@ public class FindRoomTypeServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		} catch (NumberFormatException e){
             System.out.println("Input String cannot be parsed to Integer.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/error/404.jsp");
-    		dispatcher.forward(request, response);
+            response.sendError(404);
 
 		}
 
