@@ -258,7 +258,6 @@ public class PhongDao {
 		
 		List<LoaiPhong> loaiPhongs = q1.getResultList();
 		List<LoaiPhong> loaiPhongsCp = new ArrayList<LoaiPhong>(); 
-		System.out.print("))))))))))"+loaiPhongsCp);
 		q2 = session.createQuery("FROM Phong "
 				+ "WHERE loaiPhong.soNguoi <= :numPeople "
 				+ "AND trangThai != :dangSua ");//HQL

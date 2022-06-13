@@ -3,7 +3,12 @@
   <display-name>nhom6_web_security_qlks</display-name>
 
   <error-page>
-    <error-code>500</error-code>
-    <location>/WEB-INF/views/ERR/Error500.jsp</location>
+  	<error-code>404</error-code>
+  	<location>/WEB-INF/views/error/404.jsp</location>
+  </error-page>
+  
+  <error-page>
+  	<error-code>500</error-code>
+  	<location>/WEB-INF/views/error/500.jsp</location>
   </error-page>
 </web-app>

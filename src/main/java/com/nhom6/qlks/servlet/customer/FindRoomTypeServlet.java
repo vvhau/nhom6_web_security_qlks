@@ -39,31 +39,39 @@ public class FindRoomTypeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		
-		int numPeople = Integer.parseInt(request.getParameter("num-people"));
+
 		Date checkin = new Date();
         String checkinStr = request.getParameter("check-in");
         try {        	        	
-        	checkin = new SimpleDateFormat("yyyy-MM-dd").parse(checkinStr);
-       
+        	checkin = new SimpleDateFormat("yyyy-MM-dd").parse(checkinStr);        	
         } catch (java.text.ParseException e){
-        	e.printStackTrace();
+        	System.out.println("Unparseable date: " + checkinStr);
+            response.sendError(500);
         }
         
         Date checkout = new Date();
         String checkoutStr = request.getParameter("check-out");
         try {        	        	
         	checkout = new SimpleDateFormat("yyyy-MM-dd").parse(checkoutStr);
-        
+        	
         } catch (java.text.ParseException e){
-        	e.printStackTrace();
+        	System.out.println("Unparseable date: " + checkoutStr);
+            response.sendError(500);
         }
         
-        List<LoaiPhong> roomTypes = new PhongDao().searchRoomTypes(numPeople, checkin, checkout);
-        request.setAttribute("loaiPhongs", roomTypes);
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-		dispatcher.forward(request, response);
+		try {
+			int numPeople = Integer.parseInt(request.getParameter("num-people"));
+			List<LoaiPhong> roomTypes = new PhongDao().searchRoomTypes(numPeople, checkin, checkout);
+	        request.setAttribute("loaiPhongs", roomTypes);
+	        
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
+		} catch (NumberFormatException e){
+            System.out.println("Input String cannot be parsed to Integer.");
+            response.sendError(500);
+
+		}
+
 	}
 
 	/**

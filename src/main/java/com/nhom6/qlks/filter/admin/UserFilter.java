@@ -58,18 +58,14 @@ public class UserFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) resp;
 		
 		String servletPath = request.getServletPath();
-		System.out.println(servletPath);
-		
-		if (servletPath.equals("/admin/login")) {
-			chain.doFilter(request, response);
-			return;
-		}
-		
 		HttpSession session = request.getSession();
-		HttpServletRequest wrapRequest = request;
 		
 		User user = (User) session.getAttribute("user");
 		if (user != null) {
+			if (servletPath.equals("/admin/login")) {
+				response.sendRedirect(request.getContextPath().concat("/admin"));
+				return;
+			}
 			Quyen quyen = user.getQuyen();
 			if (quyen.getIdQuyen() == 1) {
 				chain.doFilter(request, response);
@@ -80,12 +76,17 @@ public class UserFilter implements Filter {
 					}
 				}
 			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/admin/loginAdmin.jsp");
-				dispatcher.forward(request, response);
+				response.sendRedirect(request.getContextPath().concat("/"));
+				return;
 			}
 		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/admin/loginAdmin.jsp");
-			dispatcher.forward(request, response);
+			if (servletPath.equals("/admin/login")) {
+				chain.doFilter(request, response);
+				return;
+			} else {
+				response.sendRedirect(request.getContextPath().concat("/admin/login"));
+				return;
+			}
 		}
 	}
 
