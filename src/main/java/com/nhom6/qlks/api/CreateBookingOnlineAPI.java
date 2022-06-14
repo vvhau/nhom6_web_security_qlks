@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.nhom6.qlks.hibernate.daos.BookingDao;
@@ -74,7 +75,11 @@ public class CreateBookingOnlineAPI extends HttpServlet {
         }
 		
 		int idRoom = Integer.parseInt(request.getParameter("id_phong"));
-		int idCustomer = Integer.parseInt(request.getParameter("id_khach_hang"));
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		int idCustomer = user.getId();
+		
 		boolean isBookingOnline = true;
 		
 		User customer = new UserDao().getUserByid(idCustomer);
