@@ -32,7 +32,7 @@ public class AdminLogoutServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		HttpSession session = request.getSession(false);
-		session.removeAttribute("user");
+		session.invalidate();
 		
 		response.sendRedirect("login");
 	}
