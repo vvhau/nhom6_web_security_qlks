@@ -19,6 +19,7 @@ import com.nhom6.qlks.hibernate.pojo.LoaiPhong;
 import com.nhom6.qlks.hibernate.pojo.Phong;
 import com.nhom6.qlks.hibernate.pojo.Quyen;
 import com.nhom6.qlks.hibernate.pojo.User;
+import com.nhom6.qlks.utils.Utils;
 
 /**
  * Servlet implementation class EmployeeServlet
@@ -26,6 +27,7 @@ import com.nhom6.qlks.hibernate.pojo.User;
 @WebServlet("/admin/employee")
 public class EmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static String _csrf;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -42,6 +44,12 @@ public class EmployeeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		
+		_csrf = Utils.randomString();
+		request.setAttribute("_csrf", _csrf);
+		
+		new InsertEmployeeServlet(_csrf);
+		
 		List<Quyen> quyens = new QuyenDao().getAllQuyen();
 		
 		List<User> users = new UserDao().getAllUserEmployee();

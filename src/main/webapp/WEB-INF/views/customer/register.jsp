@@ -29,6 +29,7 @@
 		</div>
 		<div class="login-content">
 			<form action="<%=request.getContextPath()%>/register" method="post" accept-charset="utf-8">
+				<input name="_csrf" type="hidden" value="${_csrf}">
 				<img src="static/image/avatar.svg">
 				<h2 class="title">Đăng ký</h2>
 

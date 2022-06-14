@@ -19,6 +19,8 @@ import javax.servlet.http.HttpSession;
 import com.nhom6.qlks.hibernate.daos.QuyenDao;
 import com.nhom6.qlks.hibernate.pojo.Quyen;
 import com.nhom6.qlks.hibernate.pojo.User;
+import com.nhom6.qlks.servlet.admin.AdminLoginServlet;
+import com.nhom6.qlks.utils.Utils;
 
 /**
  * Servlet Filter implementation class UserFilter
@@ -80,11 +82,19 @@ public class UserFilter implements Filter {
 					}
 				}
 			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/admin/loginAdmin.jsp");
+				RequestDispatcher dispatcher = 
+						request.getRequestDispatcher("/WEB-INF/views/admin/loginAdmin.jsp");
+				String _csrf = Utils.randomString();
+				new AdminLoginServlet(_csrf);
+				request.setAttribute("_csrf", _csrf);
 				dispatcher.forward(request, response);
 			}
 		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/admin/loginAdmin.jsp");
+			RequestDispatcher dispatcher = 
+					request.getRequestDispatcher("/WEB-INF/views/admin/loginAdmin.jsp");
+			String _csrf = Utils.randomString();
+			new AdminLoginServlet(_csrf);
+			request.setAttribute("_csrf", _csrf);
 			dispatcher.forward(request, response);
 		}
 	}

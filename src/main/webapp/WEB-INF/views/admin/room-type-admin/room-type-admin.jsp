@@ -115,7 +115,8 @@
 
 				<!-- Modal body -->
 				<div class="modal-body">
-					<form action="room-type/add"" id="room-type-form" enctype="multipart/form-data">
+					<form action="room-type/add"" id="room-type-form" method="post" enctype="multipart/form-data">
+						<input name="_csrf" type="hidden" value="${_csrf}">
 						<div class="form-group">
 							<label for="room-type-name">Tên loại phòng:</label> 
 							<input type="text"

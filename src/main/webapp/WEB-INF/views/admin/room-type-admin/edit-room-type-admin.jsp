@@ -55,6 +55,7 @@
 						<div class="table-responsive">
 					
 							<form action="edit" method="post">
+								<input name="_csrf" type="hidden" value="${_csrf}">
 								<div class="form-group">
 									<label for="room-type-id">Id loại phòng:</label>
 									<input type="text" id="room-type-id" 

@@ -23,6 +23,7 @@ import com.nhom6.qlks.hibernate.pojo.Phong;
 import com.nhom6.qlks.hibernate.pojo.Quyen;
 import com.nhom6.qlks.hibernate.pojo.TrangThai;
 import com.nhom6.qlks.hibernate.pojo.User;
+import com.nhom6.qlks.utils.Utils;
 
 /**
  * Servlet implementation class EditEmployeeServlet
@@ -30,6 +31,7 @@ import com.nhom6.qlks.hibernate.pojo.User;
 @WebServlet(name = "EditEmployee", urlPatterns = {"/admin/employee/edit"})
 public class EditEmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static String _csrf;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -55,6 +57,9 @@ public class EditEmployeeServlet extends HttpServlet {
 		}
 		request.setAttribute("user", user);
 		
+		_csrf = Utils.randomString();
+		request.setAttribute("_csrf", _csrf);
+		
 		List<Quyen> quyens = new QuyenDao().getAllQuyen();
 		request.setAttribute("quyens", quyens);
 		
@@ -71,6 +76,14 @@ public class EditEmployeeServlet extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");        
+        
+        String csrf = request.getParameter("_csrf");
+        if(csrf == null || !csrf.equals(_csrf)){
+    		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/error/UnvalidTokenCsrf.jsp");
+    		dispatcher.forward(request, response);
+    		return;
+        }
+		
        
         Integer userId = Integer.parseInt(request.getParameter("user-id"));
         String name = request.getParameter("user-name");

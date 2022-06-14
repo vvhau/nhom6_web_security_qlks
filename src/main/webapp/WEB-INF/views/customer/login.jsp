@@ -28,8 +28,10 @@
 			<img src="static/image/background-login.svg">
 		</div>
 		<div class="login-content">
+		
 			<form action="login" method="post">
-				<input name="next" type="hidden" value="${param.next}"/>
+				<input name="_csrf" type="hidden" value="${_csrf}">
+				<input name="next" type="hidden" value="<c:out value="${param.next}"/>"/>
 				<img src="static/image/avatar.svg" alt="logo-login">
 				<h2 class="title">Maris</h2>
            		<div class="input-div one">

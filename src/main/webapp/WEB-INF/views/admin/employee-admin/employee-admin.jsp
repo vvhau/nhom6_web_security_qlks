@@ -145,8 +145,8 @@
 
 				<!-- Modal body -->
 				<div class="modal-body">
-					<form action="employee/create">
-												
+					<form action="employee/create" method="post">
+						<input name="_csrf" type="hidden" value="${_csrf}">
 						<div class="form-group">
 							<label for="user-name">Tên nhân viên:</label>
 							<input type="text" id="user-name" 
