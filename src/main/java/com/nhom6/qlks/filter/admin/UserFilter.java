@@ -28,6 +28,7 @@ import com.nhom6.qlks.utils.Utils;
 @WebFilter(urlPatterns = {"/admin/*"})
 public class UserFilter implements Filter {
 	private String[] urlRoleEmployee = {
+				"/admin",
 				"/admin/login",
 				"/admin/room-search",
 				"/admin/bill/insert",
@@ -75,8 +76,11 @@ public class UserFilter implements Filter {
 				for (String url: urlRoleEmployee) {
 					if (url.equals(servletPath)) {
 						chain.doFilter(request, response);
+						return;
 					}
 				}
+				response.sendRedirect(request.getContextPath().concat("/admin"));
+				return;
 			} else {
 				response.sendRedirect(request.getContextPath().concat("/"));
 				return;
