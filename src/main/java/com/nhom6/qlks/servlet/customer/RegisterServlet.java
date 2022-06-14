@@ -84,6 +84,7 @@ public class RegisterServlet extends HttpServlet {
 			// TODO: handle exception
 			err_msg = "Ngày không hợp lệ";
 			request.setAttribute("errMessage", err_msg);
+			request.setAttribute("_csrf", _csrf);
 			request.getRequestDispatcher("/WEB-INF/views/customer/register.jsp").forward(request, response);
 			return;
 		}
@@ -91,6 +92,7 @@ public class RegisterServlet extends HttpServlet {
 		if (!matKhau.equals(matKhau2)) {
 			err_msg = "Xác nhận mật khẩu không đúng";
 			request.setAttribute("errMessage", err_msg);
+			request.setAttribute("_csrf", _csrf);
 			request.getRequestDispatcher("/WEB-INF/views/customer/register.jsp").forward(request, response);
 			return;
 		}
@@ -110,6 +112,7 @@ public class RegisterServlet extends HttpServlet {
 		String errCheckUser = new Utils().checkRegister(user);
 		if (errCheckUser != null) {
 			request.setAttribute("errMessage", errCheckUser);
+			request.setAttribute("_csrf", _csrf);
 			request.getRequestDispatcher("/WEB-INF/views/customer/register.jsp").forward(request, response);
 			return;
 		}
@@ -133,6 +136,7 @@ public class RegisterServlet extends HttpServlet {
 			return;
 		} else {
 			request.setAttribute("errMessage", err_msg);
+			request.setAttribute("_csrf", _csrf);
 			request.getRequestDispatcher("/WEB-INF/views/customer/register.jsp").forward(request, response);
 			return;
 		}
