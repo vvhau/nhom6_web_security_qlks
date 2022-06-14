@@ -19,6 +19,7 @@ import com.nhom6.qlks.hibernate.pojo.LoaiPhong;
 @WebServlet(name = "AddRoomType", urlPatterns = {"/admin/room-type/add"})
 public class InsertRoomTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static String _csrf;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -27,12 +28,26 @@ public class InsertRoomTypeServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    public InsertRoomTypeServlet(String _csrf) {
+        super();
+        this._csrf = _csrf;
+    }
 
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        
+        String csrf = request.getParameter("_csrf");
+        if(csrf == null || !csrf.equals(_csrf)){
+    		RequestDispatcher dispatcher = 
+    				request.getRequestDispatcher("/WEB-INF/views/error/UnvalidTokenCsrf.jsp");
+    		dispatcher.forward(request, response);
+    		return;
+        }
+        
         String roomTypeName = request.getParameter("room-type-name");
         String roomTypeImage = request.getParameter("room-type-image");
         Float roomTypeUnitPrice = Float.parseFloat(request.getParameter("room-type-unit-price"));

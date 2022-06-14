@@ -16,6 +16,7 @@
 	    <h1 class="text-center text-danger mb-5 pt-5">ĐĂNG NHẬP TRANG QUẢN LÝ KHÁCH SẠN</h1>
 		<div class="row">
 		    <form action="${pageContext.request.contextPath}/admin/login" method="post" class="col-sm- m-auto">
+		        <input name="_csrf" type="hidden" value="${_csrf}">
 		        <div class="form-group">
 		            <label for="username">Tên đăng nhập</label>
 		            <input type="text"

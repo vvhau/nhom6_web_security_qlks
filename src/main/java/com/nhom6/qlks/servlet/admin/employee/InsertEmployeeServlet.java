@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,6 +25,7 @@ import com.nhom6.qlks.utils.Utils;
 @WebServlet(name = "InsertEmployee", urlPatterns = {"/admin/employee/create"})
 public class InsertEmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static String _csrf;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -32,7 +34,12 @@ public class InsertEmployeeServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    
+    public InsertEmployeeServlet(String _csrf) {
+        super();
+        this._csrf = _csrf;
+        // TODO Auto-generated constructor stub
+    }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -50,10 +57,18 @@ public class InsertEmployeeServlet extends HttpServlet {
 	}
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");        
+        request.setCharacterEncoding("UTF-8");  
+        
+        String csrf = request.getParameter("_csrf");
+        if(csrf == null || !csrf.equals(_csrf)){
+    		RequestDispatcher dispatcher = 
+    				request.getRequestDispatcher("/WEB-INF/views/error/UnvalidTokenCsrf.jsp");
+    		dispatcher.forward(request, response);
+    		return;
+        }
        
         String name = request.getParameter("user-name");
- 
+        
         Date dob = new Date();
         String dobStr = request.getParameter("user-dob");
         try {        	        	

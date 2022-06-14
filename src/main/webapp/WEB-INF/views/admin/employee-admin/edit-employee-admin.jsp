@@ -68,6 +68,7 @@
 						<div class="table-responsive">
 					
 							<form action="edit" method="post">
+								<input name="_csrf" type="hidden" value="${_csrf}">
 								<div class="form-group">
 									<label for="user-id">Id User:</label>
 									<input type="text" id="user-id" 
@@ -160,6 +161,8 @@
 								
 								<input type="submit" class="btn btn-success" value="Lưu">		
 								<a class="btn btn-danger" href="<c:url value='/admin/employee'/>">Thoát</a>
+							
+
 							</form>
 							<!-- end form -->			
 						</div>	

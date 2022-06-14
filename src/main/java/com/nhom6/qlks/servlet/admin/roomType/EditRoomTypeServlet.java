@@ -16,6 +16,7 @@ import com.nhom6.qlks.hibernate.daos.TrangThaiDao;
 import com.nhom6.qlks.hibernate.pojo.LoaiPhong;
 import com.nhom6.qlks.hibernate.pojo.Phong;
 import com.nhom6.qlks.hibernate.pojo.TrangThai;
+import com.nhom6.qlks.utils.Utils;
 
 /**
  * Servlet implementation class RoomType
@@ -23,6 +24,7 @@ import com.nhom6.qlks.hibernate.pojo.TrangThai;
 @WebServlet(name = "EditRoomType", urlPatterns = {"/admin/room-type/edit"})
 public class EditRoomTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static String _csrf;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -39,6 +41,10 @@ public class EditRoomTypeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        
+		_csrf = Utils.randomString();
+		request.setAttribute("_csrf", _csrf);
+        
 		String idRoomTypeStr = request.getParameter("room-type-id");
 		
 		LoaiPhong roomType;
@@ -62,6 +68,14 @@ public class EditRoomTypeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        
+        String csrf = request.getParameter("_csrf");
+        if(csrf == null || !csrf.equals(_csrf)){
+    		RequestDispatcher dispatcher = 
+    				request.getRequestDispatcher("/WEB-INF/views/error/UnvalidTokenCsrf.jsp");
+    		dispatcher.forward(request, response);
+    		return;
+        }
         
         Integer roomTypeId = Integer.parseInt(request.getParameter("room-type-id"));
         String roomTypeName = request.getParameter("room-type-name");

@@ -19,6 +19,8 @@ import javax.servlet.http.HttpSession;
 import com.nhom6.qlks.hibernate.daos.QuyenDao;
 import com.nhom6.qlks.hibernate.pojo.Quyen;
 import com.nhom6.qlks.hibernate.pojo.User;
+import com.nhom6.qlks.servlet.admin.AdminLoginServlet;
+import com.nhom6.qlks.utils.Utils;
 
 /**
  * Servlet Filter implementation class UserFilter

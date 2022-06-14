@@ -33,6 +33,7 @@
 		</div>
 		<div class="login-content">
 			<form action="change-password" method="post">
+				<input name="_csrf" type="hidden" value="${_csrf}">
 				<img src="static/image/avatar.svg" alt="logo">
 				<h2 class="title">Maris</h2>
            		<div class="input-div one focus">

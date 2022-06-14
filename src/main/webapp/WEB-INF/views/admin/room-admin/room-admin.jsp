@@ -120,7 +120,8 @@
 
 				<!-- Modal body -->
 				<div class="modal-body">
-					<form action="room/add" id="room-form">
+					<form action="room/add" id="room-form" method="post">
+						<input name="_csrf" type="hidden" value="${_csrf}">
 						<div class="form-group">
 							<label for="room-name">Tên phòng:</label> 
 							<input type="text"

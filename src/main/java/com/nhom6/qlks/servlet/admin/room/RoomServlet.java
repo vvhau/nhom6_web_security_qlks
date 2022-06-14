@@ -16,6 +16,7 @@ import com.nhom6.qlks.hibernate.daos.TrangThaiDao;
 import com.nhom6.qlks.hibernate.pojo.LoaiPhong;
 import com.nhom6.qlks.hibernate.pojo.Phong;
 import com.nhom6.qlks.hibernate.pojo.TrangThai;
+import com.nhom6.qlks.utils.Utils;
 
 /**
  * Servlet implementation class Room
@@ -23,6 +24,7 @@ import com.nhom6.qlks.hibernate.pojo.TrangThai;
 @WebServlet(name = "RoomServlet", urlPatterns = {"/admin/room"})
 public class RoomServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static String _csrf;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,7 +39,12 @@ public class RoomServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/html; charset=UTF-8");			
+		response.setContentType("text/html; charset=UTF-8");	
+		
+		_csrf = Utils.randomString();
+		request.setAttribute("_csrf", _csrf);
+		
+		new InsertRoomServlet(_csrf);
 		
 		List<LoaiPhong> lps = new LoaiPhongDao().getAllLoaiPhong();
 		request.setAttribute("loaiPhongs", lps);

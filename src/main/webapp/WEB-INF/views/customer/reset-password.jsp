@@ -29,6 +29,7 @@
 		</div>
 		<div class="login-content">
 			<form action="${pageContext.request.contextPath}/reset-password" method="post">
+				<input name="_csrf" type="hidden" value="${_csrf}">
 				<img src="static/image/avatar.svg">
 				<h2 class="title">Maris</h2>
            		<div class="input-div one">

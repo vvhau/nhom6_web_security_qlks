@@ -19,6 +19,7 @@ import com.nhom6.qlks.utils.Utils;
 @WebServlet("/reset-password")
 public class ResetPasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static String  _csrf;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -27,6 +28,10 @@ public class ResetPasswordServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    public ResetPasswordServlet(String _csrf) {
+        super();
+        this._csrf = _csrf;
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,6 +39,10 @@ public class ResetPasswordServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=UTF-8");
+		
+		_csrf = Utils.randomString();
+		request.setAttribute("_csrf", _csrf);
+		
 //		request.setAttribute("errMessage", "");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/customer/reset-password.jsp");
 		dispatcher.forward(request, response);
@@ -46,6 +55,15 @@ public class ResetPasswordServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		
+        String csrf = request.getParameter("_csrf");
+        if(csrf == null || !csrf.equals(_csrf)){
+    		RequestDispatcher dispatcher = 
+    				request.getRequestDispatcher("/WEB-INF/views/error/UnvalidTokenCsrf.jsp");
+    		dispatcher.forward(request, response);
+    		return;
+        }
+		
 		String err_msg = "";
 		
 		String newPassword = request.getParameter("password");
@@ -54,6 +72,7 @@ public class ResetPasswordServlet extends HttpServlet {
 		if (!newPassword.equals(confirmNewPassword)) {
 			err_msg = "Xác nhận mật khẩu không đúng";
 			request.setAttribute("errMessage", err_msg);
+			request.setAttribute("_csrf", _csrf);
 			request.getRequestDispatcher("/WEB-INF/views/customer/reset-password.jsp").forward(request, response);
 			return;
 		}
@@ -70,6 +89,7 @@ public class ResetPasswordServlet extends HttpServlet {
 			return;
 		} else {
 			request.setAttribute("errMessage", err_msg);
+			request.setAttribute("_csrf", _csrf);
 			request.getRequestDispatcher("/WEB-INF/views/customer/reset-password.jsp").forward(request, response);
 			return;
 		}

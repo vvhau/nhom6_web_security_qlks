@@ -34,8 +34,7 @@ public class AdminLogoutServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		session.removeAttribute("user");
 		
-		String site = request.getContextPath() + "/admin";
-		response.sendRedirect(site);
+		response.sendRedirect("login");
 	}
 
 	/**

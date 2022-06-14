@@ -19,6 +19,7 @@ import com.nhom6.qlks.utils.Utils;
 @WebServlet("/change-password")
 public class ChangePasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static String _csrf;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -35,6 +36,9 @@ public class ChangePasswordServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=UTF-8");
 		
+		_csrf = Utils.randomString();
+		request.setAttribute("_csrf", _csrf);
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/customer/change-password.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -45,6 +49,14 @@ public class ChangePasswordServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=UTF-8");
+		
+        String csrf = request.getParameter("_csrf");
+        if(csrf == null || !csrf.equals(_csrf)){
+    		RequestDispatcher dispatcher = 
+    				request.getRequestDispatcher("/WEB-INF/views/error/UnvalidTokenCsrf.jsp");
+    		dispatcher.forward(request, response);
+    		return;
+        }
 		
 		String username = request.getParameter("username");
 		String oldPassword = request.getParameter("oldPassword");
@@ -73,6 +85,7 @@ public class ChangePasswordServlet extends HttpServlet {
 			error = userDao.changePassword(username, oldPassword, newPassword);
 			request.setAttribute("errMessage", error);			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/customer/change-password.jsp");
+			request.setAttribute("_csrf", _csrf);
 			dispatcher.forward(request, response);
 			return;
 		}

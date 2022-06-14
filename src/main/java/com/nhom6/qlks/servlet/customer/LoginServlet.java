@@ -2,7 +2,6 @@ package com.nhom6.qlks.servlet.customer;
 
 import java.io.IOException;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +22,7 @@ import com.nhom6.qlks.utils.Utils;
 @WebServlet(urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static String _csrf;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -38,6 +38,9 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		_csrf = Utils.randomString();
+		request.setAttribute("_csrf", _csrf);
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/customer/login.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -49,6 +52,15 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		
+        String csrf = request.getParameter("_csrf");
+        if(csrf == null || !csrf.equals(_csrf)){
+    		RequestDispatcher dispatcher = 
+    				request.getRequestDispatcher("/WEB-INF/views/error/UnvalidTokenCsrf.jsp");
+    		dispatcher.forward(request, response);
+    		return;
+        }
+		
 		String err_msg = "";		
 		String tenDangNhap = request.getParameter("username");
 		String matKhau = new Utils().strToMD5(request.getParameter("password"));
@@ -69,6 +81,7 @@ public class LoginServlet extends HttpServlet {
 			return;
 		} else {
 			request.setAttribute("errMessage", "Tên đăng nhập hoặc mật khẩu không đúng hoặc tài khoản bị khóa");
+			request.setAttribute("_csrf", _csrf);
 			request.getRequestDispatcher("/WEB-INF/views/customer/login.jsp").forward(request, response);
 			return;
 		}
