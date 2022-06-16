@@ -46,7 +46,7 @@ public class RoomTypeDetailServlet extends HttpServlet {
     		dispatcher.forward(request, response);
         } catch (NumberFormatException e) {
             System.out.println("Input String cannot be parsed to Integer.");
-    		response.sendError(500);
+    		response.sendError(404);
         }
 		
 		

@@ -41,12 +41,11 @@ public class FindRoomTypeServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		Date checkin = new Date();
-        String checkinStr = request.getParameter("check-in");
+		String checkinStr = request.getParameter("check-in");
         try {        	        	
         	checkin = new SimpleDateFormat("yyyy-MM-dd").parse(checkinStr);        	
         } catch (java.text.ParseException e){
-        	System.out.println("Unparseable date: " + checkinStr);
-            response.sendError(500);
+        	e.printStackTrace();
         }
         
         Date checkout = new Date();
@@ -55,8 +54,7 @@ public class FindRoomTypeServlet extends HttpServlet {
         	checkout = new SimpleDateFormat("yyyy-MM-dd").parse(checkoutStr);
         	
         } catch (java.text.ParseException e){
-        	System.out.println("Unparseable date: " + checkoutStr);
-            response.sendError(500);
+        	e.printStackTrace();
         }
         
 		try {
@@ -68,7 +66,7 @@ public class FindRoomTypeServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		} catch (NumberFormatException e){
             System.out.println("Input String cannot be parsed to Integer.");
-            response.sendError(500);
+            response.sendError(404);
 
 		}
 
