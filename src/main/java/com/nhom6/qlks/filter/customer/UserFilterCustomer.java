@@ -37,6 +37,14 @@ public class UserFilterCustomer extends HttpFilter implements Filter {
 	// type: SAMEORIGIN, DENY, ALLOW-FROM
 	private String mode = "SAMEORIGIN";
 	
+	// policy content
+	private String policy = "default-src 'self'; "
+			+ "script-src 'self' https://code.jquery.com/jquery-3.5.1.slim.min.js https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js; "
+			+ "style-src 'self' https://use.fontawesome.com/releases/v5.6.3/css/all.css https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css; "
+			+ "media-src 'none'; "
+			+ "form-action 'self'; "
+			+ "frame-ancestors 'self' ";
+	
     /**
      * @see HttpFilter#HttpFilter()
      */
@@ -65,6 +73,8 @@ public class UserFilterCustomer extends HttpFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) resp;
 		
 		antiClickjacking(response);
+		
+		addCSPHeader(response);
 		
 		String servletPath = request.getServletPath();
 		System.out.println(request.getMethod() + " - " + servletPath + " - " + request.getQueryString());
@@ -110,6 +120,10 @@ public class UserFilterCustomer extends HttpFilter implements Filter {
 	
 	private void antiClickjacking(HttpServletResponse response) {
 		response.addHeader("X-FRAME-OPTIONS", mode);
+	}
+	
+	private void addCSPHeader(HttpServletResponse response) {
+		response.addHeader("Content-Security-Policy", policy);
 	}
 
 }
