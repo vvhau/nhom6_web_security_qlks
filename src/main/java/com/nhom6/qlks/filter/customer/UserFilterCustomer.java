@@ -38,8 +38,7 @@ public class UserFilterCustomer extends HttpFilter implements Filter {
 	private String mode = "SAMEORIGIN";
 	
 	// policy content
-	private String policy = "default-src 'self'; "
-			+ "script-src 'self' https://code.jquery.com/jquery-3.5.1.slim.min.js https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js; "
+	private String policy = "script-src 'unsafe-inline' https://code.jquery.com/jquery-3.5.1.slim.min.js https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js; "
 			+ "style-src 'self' https://use.fontawesome.com/releases/v5.6.3/css/all.css https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css; "
 			+ "media-src 'none'; "
 			+ "form-action 'self'; "
@@ -74,7 +73,7 @@ public class UserFilterCustomer extends HttpFilter implements Filter {
 		
 		antiClickjacking(response);
 		
-		addCSPHeader(response);
+//		addCSPHeader(response);
 		
 		String servletPath = request.getServletPath();
 		System.out.println(request.getMethod() + " - " + servletPath + " - " + request.getQueryString());

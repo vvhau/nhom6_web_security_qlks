@@ -92,7 +92,7 @@
                             <div class="col-sm-offset-2 col-sm-10">
 	                            	<%User user = (User) session.getAttribute("user");%>
 	                                <% if (user != null) { %>
-	                                	<button id="btnCreateBooking" class="btn btn-info" type="button" onclick="createBookingOnline(<%= user.getId() %>,${roomTypeDetail.getIdLoaiPhong()})">Đặt phòng</button>
+	                                	<button id="btnCreateBooking" class="btn btn-info" type="button" onclick="createBookingOnline(${roomTypeDetail.getIdLoaiPhong()})">Đặt phòng</button>
 	                                <% } else {%>
 	                                	<a href="<c:url value='login?next=/room-type'/>?id=${roomTypeDetail.getIdLoaiPhong()}">Đăng nhập để đặt phòng</a>                                	
 	                                <% } %>
@@ -178,17 +178,12 @@
 	    })
 	}
 	
-	function createBookingOnline(customerId, roomTypeId) {	   
+	function createBookingOnline(roomTypeId) {	   
 	    let numPeople = document.getElementById("numPeople").value;
 	    let checkin = document.getElementById("check-in").value;
 	    let checkout = document.getElementById("check-out").value;
 	    let idRoom = document.getElementById("room-list").value;
-	    let customerIdStr = customerId.toString();
-		console.log(typeof(numPeople));
-		console.log(typeof(checkin));
-		console.log(typeof(checkout));
-		console.log(typeof(idRoom));
-		console.log(typeof(customerIdStr));
+	   
 	    //bien thong bao
 	    let notification = document.createElement('span');
 	    notification.setAttribute('id','msg');
@@ -207,8 +202,7 @@
 	        		so_nguoi: numPeople,
 	            	check_in: checkin,
 	            	check_out: checkout,
-	            	id_phong: idRoom,
-	            	id_khach_hang: customerIdStr
+	            	id_phong: idRoom
 	        	},
 	        	function(data) {
 	        		console.log(data);
