@@ -27,7 +27,9 @@ public class UserFilterCustomer extends HttpFilter implements Filter {
 			"/register",
 			"/room-type",
 			"/search-room-type",
-			"/forgot-password"
+			"/forgot-password",
+			"/api/find-rooms-by-room-type",
+			"/api/get-total-price"
 		};
 	private String[] urlPublicMultiple = {
 			"/admin",
@@ -39,11 +41,14 @@ public class UserFilterCustomer extends HttpFilter implements Filter {
 	
 	// policy content
 	private String policy = "default-src 'self'; "
-			+ "script-src 'self' https://code.jquery.com/jquery-3.5.1.slim.min.js https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js; "
-			+ "style-src 'self' https://use.fontawesome.com/releases/v5.6.3/css/all.css https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css; "
+			+ "script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net 'unsafe-inline'; "
+			+ "style-src 'self' https://use.fontawesome.com https://cdn.jsdelivr.net https://fonts.googleapis.com https://unpkg.com 'unsafe-inline'; "
 			+ "media-src 'none'; "
 			+ "form-action 'self'; "
-			+ "frame-ancestors 'self' ";
+			+ "frame-ancestors 'self'; "
+			+ "img-src 'self' *; "
+			+ "font-src 'self' https://use.fontawesome.com https://fonts.googleapis.com https://fonts.gstatic.com; "
+			+ "connect-src 'self' ";
 	
     /**
      * @see HttpFilter#HttpFilter()
