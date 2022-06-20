@@ -79,7 +79,7 @@ public class UserFilterCustomer extends HttpFilter implements Filter {
 		
 		antiClickjacking(response);
 		
-		addCSPHeader(response);
+//		addCSPHeader(response);
 		
 		String servletPath = request.getServletPath();
 		System.out.println(request.getMethod() + " - " + servletPath + " - " + request.getQueryString());
