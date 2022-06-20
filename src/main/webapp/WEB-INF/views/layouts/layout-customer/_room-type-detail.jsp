@@ -122,7 +122,8 @@
 	    fetch(uri, {
 	        method: 'get',
 	        headers: {
-	            "Content-Type": "application/json"
+	            "Content-Type": "application/json",
+	            "Accept": "application/json"
 	        }
 	    }).then(function(res) {
 	        console.info(res)
@@ -167,7 +168,8 @@
 	    fetch(uri, {
 	        method: 'get',
 	        headers: {
-	            "Content-Type": "application/json"
+	            "Content-Type": "application/json",
+	            "Accept": "application/json"
 	        }
 	    }).then(function(res) {
 	        console.info(res)
